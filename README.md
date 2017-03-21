@@ -47,6 +47,8 @@ Keyword options:
 
 * ```package='sklearn'```: Package (```sklearn``` or ```gensim```) to use for the tfidf computation. Generally, ```sklearn``` should be used (more options).
 
+* ```max_words=3```: Maximum number of words in a keyphrase
+
 * ```number_of_terms=10```: Number of top-ranking keyphrases to be returned
 
 * ```max_features=20```: Number of high-frequency features to be used. ```max_features=2*number_of_terms``` seems to work fine.

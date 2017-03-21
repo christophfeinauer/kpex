@@ -5,6 +5,7 @@ import gensim
 import math
 import errno
 import os
+import site
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 def read_txt(file):
@@ -109,6 +110,8 @@ def extract_terms_with_corpus_gensim(text_files,number_of_terms=5,max_words=3, l
     return terms[0:number_of_terms]
 
 def test():
-    text_files = ['./tests/dat/script.txt','./tests/transcript_1.txt','./tests/transcript_2.txt','./tests/transcript_3.txt']
-    terms = extract_terms_with_corpus(text_files)
+    sp = os.path.dirname(__file__);
+    fns = ['script.txt','transcript_1.txt','transcript_2.txt','transcript_3.txt']
+    text_files = [os.path.join(sp,'tests',fn) for fn in fns]
+    terms = kpex(text_files)
     return terms

@@ -5,6 +5,7 @@ import gensim
 import math
 import errno
 import os
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 def read_txt(file):
     with open(file) as fid:
@@ -46,13 +47,6 @@ def extract_chunks(text_string,max_words=3,lemmatize=False):
     return candidates
 
 def extract_terms_with_corpus_sklearn(text_files, number_of_terms=10, max_features=20, max_words=3, lemmatize=True, train_on_script = True):
-    
-    # check input
-    for file in text_files:
-        if not os.path.isfile(file):
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), file)
-    if number_of_terms>max_features:
-        raise Exception("number_of_terms has to be smaller than max_features")
 
     # tokenizer
     analyzer = lambda s: extract_chunks(read_txt(s),lemmatize=lemmatize,max_words=max_words)
@@ -74,13 +68,29 @@ def extract_terms_with_corpus_sklearn(text_files, number_of_terms=10, max_featur
 
     return [(id2term[i],tfidf_script[0,i]) for i in tfidf_script.toarray()[0,:].argsort()[::-1][0:number_of_terms]]
 
+def kpex(text_files,package='sklearn',number_of_terms=10,max_features=20,max_words=3,lemmatize=True,train_on_script=True):
 
-def extract_terms_with_corpus_gensim(text_files,number_of_terms=5,max_words=3, lemmatize=True, filter_no_below=0, filter_no_above=1.0):
-    
+    # check input
+    for file in text_files:
+        if not os.path.isfile(file):
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), file)
+    if number_of_terms>max_features:
+        raise Exception("number_of_terms has to be smaller than max_features")
+    if (package is not 'sklearn') and (package is not 'gensim'):
+        raise Exception("Package should be sklearn or gensim")
+
+    if package == 'sklearn':
+        return extract_terms_with_corpus_sklearn(text_files,number_of_terms=10,max_features=20,max_words=3,lemmatize=True,train_on_script=True)
+    else:
+        return extract_terms_with_corpus_gensim(text_files,number_of_terms=number_of_terms,max_words=max_words,lemmatize=lemmatize)
+
+def extract_terms_with_corpus_gensim(text_files,number_of_terms=5,max_words=3, lemmatize=True):
+   
+    # Make chunks 
     chunked_texts = [extract_chunks(read_txt(text),max_words=max_words,lemmatize=lemmatize) for text in text_files]
-    
+   
+    # Mapping between id and term 
     dictionary = gensim.corpora.Dictionary(chunked_texts)
-    #dictionary.filter_extremes(no_below=filter_no_below, no_above=filter_no_above)
     
     # Bag of words representation of the text
     cp = [dictionary.doc2bow(boc_text) for boc_text in chunked_texts]
@@ -99,6 +109,6 @@ def extract_terms_with_corpus_gensim(text_files,number_of_terms=5,max_words=3, l
     return terms[0:number_of_terms]
 
 def test():
-    text_files = ['../dat/script.txt','../dat/transcript_1.txt','../dat/transcript_2.txt','../dat/transcript_3.txt']
+    text_files = ['./tests/dat/script.txt','./tests/transcript_1.txt','./tests/transcript_2.txt','./tests/transcript_3.txt']
     terms = extract_terms_with_corpus(text_files)
     return terms

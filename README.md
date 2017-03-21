@@ -33,7 +33,7 @@ Everything was tested on Python 3.6.0
 Usage
 -----
 
-The function ```kpex.kpex(l,kw...)``` takes a list ```l``` of filenames and analyzes the first file based on the rest, which is used to calculate the document frequencies.
+The function ```kpex.kpex(list,kw...)``` takes a list ```list``` of filenames and analyzes the first file based on the rest, which is used to calculate the document frequencies.
 
 Keyword options:
 

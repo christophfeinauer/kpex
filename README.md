@@ -17,9 +17,17 @@ pip install nltk gensim scikit-learn
 ```
 
 Install kpex with:
-
 ```
 pip install git+https://github.com/christophfeinauer/kpex
+```
+
+Install needed nltk data packages in Python:
+```
+import nltk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+nltk.download('stopwords')
 ```
 
 Test in Python (using the Wikpedia article on 'food' and articles on 'fast food', 'restaurant' and 'cooking' as corpus:

@@ -1,4 +1,4 @@
-Kpex: Keyphrase extraction in Python (based on a corpus)
+kpex: Keyphrase extraction in Python (based on a corpus)
 =============================================================================
 
 Overview
@@ -13,7 +13,11 @@ Needed Python packages: nltk, gensim and scikit-learn
 
 Install with:
 ```
-pip install -r REPO_DIR/requirements.txt
+pip install nltk gensim scikit-learn
 ```
 
-Install
+Install kpex:
+
+```
+pip install git+https://github.com/christophfeinauer/kpex
+```

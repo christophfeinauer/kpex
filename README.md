@@ -28,7 +28,7 @@ import kpex
 kpex.test()
 ```
 
-This was tested on Python 3.6.0
+Everything was tested on Python 3.6.0
 
 Usage
 -----
@@ -38,7 +38,12 @@ The function ```kpex``` takes a list of filenames and analyzes the first file ba
 Keyword options:
 
 ```package='sklearn'```: Package (```sklearn``` or ```gensim```) to use for the tfidf computation. Generally, ```sklearn``` should be used (more options).
+
 ```number_of_terms=10```: Number of top-ranking keyphrases to be returned
+
 ```max_features=20```: Number of high-frequency features to be used. ```max_features=2*number_of_terms``` seems to work fine.
+
 ```lemmatize=True```: Lemmatize candidate keyphrases. Improves the grouping of keyphrases but can lead to grammatically incorrect keyphrases. 
+
 ```train_on_script=True```: Include the first provided file for the document frequency calculation. 
+

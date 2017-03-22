@@ -57,3 +57,12 @@ Keyword options:
 
 * ```train_on_script=True```: Include the first provided file for the document frequency calculation. 
 
+Sources
+------
+Ideas, knowledge and occiasional code snippets taken from:
+
+* http://www.aclweb.org/anthology/P/P14/P14-1119.xhtml
+* http://bdewilde.github.io/blog/2014/09/23/intro-to-automatic-keyphrase-extraction/
+* http://alexbowe.com/au-naturale/
+* https://joshbohde.com/blog/document-summarization
+
